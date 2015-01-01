@@ -66,7 +66,7 @@ public class Item
    void printItemAttributes () 
    {
       String x;
-	   System.out.println("In your shopping cart, there is/are " + this.quantity + this.name + "(s) that costs $" +this.unitPrice + " each. It weighs " + this.weight +" pound(s) and is shipping to " + this.shippingState + ".");
+	   System.out.println("In your shopping cart, there is/are " + this.quantity + " " + this.name + "(s) that costs $" + String.format("%.2f", this.unitPrice) + " each. It weighs " + this.weight +" pound(s) and is shipping to " + this.shippingState + ".");
    }
       
 // getters

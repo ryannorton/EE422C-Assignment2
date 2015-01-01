@@ -62,7 +62,8 @@ public class ShoppingCartDriver
      				{
      					Clothing cloth = new Clothing(name, price, quantity, weight);
      					shoppingCart.add(cloth);
-     				}	
+     				}
+     				sortShoppingCart();
    			}
    			else if (operation.equals("search"))
    			{
@@ -70,7 +71,7 @@ public class ShoppingCartDriver
    				ArrayList<Item> results = new ArrayList<Item>();
    			   for (Item i: shoppingCart)
    			   {
-   			      if(i.getName().contains(name))
+   			      if(i.getName().equals(name))
    			      {
    			         results.add(i);
    			      }
@@ -81,17 +82,44 @@ public class ShoppingCartDriver
    			else if (operation.equals("delete"))
    			{
    				String name = inputs[1];
+   				Iterator<Item> i = shoppingCart.iterator();
+   				int numDeleted = 0;
+               while (i.hasNext()) 
+               {
+                  if (i.next().getName().equals(name))
+                  {
+                     i.remove();
+                     numDeleted++;
+                  }
+               }
+               System.out.println(numDeleted + " items deleted.");
    			}
    			else if (operation.equals("update"))
    			{
    				String name = inputs[1];
+   				int quantity = Integer.parseInt(inputs[2]);
+   				for (Item i: shoppingCart)
+               {
+   				   if(i.getName().equals(name))
+                  {
+                     i.setQuantity(quantity);
+                     i.printItemAttributes();
+                     return;
+                  }
+               }
    			}
-   			if (operation.equals("print"))
+   			else if (operation.equals("print"))
    			{
-   				String name = inputs[1];
+   			   float totalCost = 0;
+   			   for (Item i: shoppingCart)
+               {
+                  i.printItemAttributes();
+                  totalCost += i.calculatePrice();
+               }
+   			   System.out.println("The total cost of all items is: $" + String.format("%.2f", totalCost));
    			}
    		}
-   	} 
+   	}
    	catch (FileNotFoundException e) 
    	{
    		System.err.println ("Error: File not found. Exiting...");
@@ -103,29 +131,15 @@ public class ShoppingCartDriver
    		e.printStackTrace();
    		System.exit(-1);
    	}
-      //Parse input, take appropriate actions.
-      
-      //Stub for arraylist.
-      ArrayList<Item> shoppingCart = new ArrayList<Item>(); 
-      
-      // General code example for how to iterate an array list. You will have to modify this heavily, to suit your needs.
-      Iterator<Item> i = shoppingCart.iterator();
-      while (i.hasNext()) 
-      {
-         Item temp = i.next();
-         temp.calculatePrice(); 
-         temp.printItemAttributes();
-         //This (above) works because of polymorphism: a determination is made at runtime, 
-         //based on the inherited class type, as to which method is to be invoked. Eg: If it is an instance
-         // of Grocery, it will invoke the calculatePrice () method defined in Grocery.
-      }
-      
-      // sort shopping cart by item name
+   }
+   
+   private static void sortShoppingCart()
+   {
       Collections.sort(shoppingCart, new Comparator<Item>() {
          @Override
          public int compare(Item i1, Item i2) {
              return i1.getName().compareToIgnoreCase(i2.getName());
          }
-     });
+      });
    }
 }

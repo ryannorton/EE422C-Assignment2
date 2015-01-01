@@ -29,11 +29,24 @@ public class ShoppingCartDriver
    			
    			if (operation.equals("insert"))
    			{
-   				String category = inputs[1];
-     				String name = inputs[2];
-     				float price = Float.parseFloat(inputs[3]);
-     				int quantity = Integer.parseInt(inputs[4]);
-     				int weight = Integer.parseInt(inputs[5]);
+   			   String category;
+               String name;
+               float price;
+               int quantity;
+               int weight;
+   			   try
+   			   {
+   			      category = inputs[1];
+                  name = inputs[2];
+                  price = Float.parseFloat(inputs[3]);
+                  quantity = Integer.parseInt(inputs[4]);
+                  weight = Integer.parseInt(inputs[5]);
+   			   }
+   			   catch (Exception e)
+   			   {
+   			      System.out.println("Invalid command (" + s + "). Skipping.");
+   			      continue;
+   			   }
 
      				if (category.equals("electronics"))
      				{
@@ -104,7 +117,7 @@ public class ShoppingCartDriver
                   {
                      i.setQuantity(quantity);
                      i.printItemAttributes();
-                     return;
+                     continue;
                   }
                }
    			}
@@ -122,12 +135,13 @@ public class ShoppingCartDriver
    	}
    	catch (FileNotFoundException e) 
    	{
-   		System.err.println ("Error: File not found. Exiting...");
+   		System.err.println("Error: File not found. Exiting...");
    		e.printStackTrace();
    		System.exit(-1);
-   	} catch (IOException e) 
+   	}
+    	catch (IOException e) 
    	{
-   		System.err.println ("Error: IO exception. Exiting...");
+   		System.err.println("Error: IO exception. Exiting...");
    		e.printStackTrace();
    		System.exit(-1);
    	}

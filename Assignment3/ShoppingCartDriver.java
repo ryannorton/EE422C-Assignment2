@@ -64,16 +64,20 @@ public class ShoppingCartDriver
      					shoppingCart.add(cloth);
      				}	
    			}
-   			if(operation == "search"){
+   			else if (operation.equals("search"))
+   			{
    				String name = inputs[1];
    			}
-   			if(operation == "delete"){
+   			else if (operation.equals("delete"))
+   			{
    				String name = inputs[1];
    			}
-   			if(operation == "update"){
+   			else if (operation.equals("update"))
+   			{
    				String name = inputs[1];
    			}
-   			if(operation == "print"){
+   			if (operation.equals("print"))
+   			{
    				String name = inputs[1];
    			}
    		}
@@ -104,6 +108,14 @@ public class ShoppingCartDriver
          //This (above) works because of polymorphism: a determination is made at runtime, 
          //based on the inherited class type, as to which method is to be invoked. Eg: If it is an instance
          // of Grocery, it will invoke the calculatePrice () method defined in Grocery.
-      }     
+      }
+      
+      // sort shopping cart by item name
+      Collections.sort(shoppingCart, new Comparator<Item>() {
+         @Override
+         public int compare(Item i1, Item i2) {
+             return i1.getName().compareToIgnoreCase(i2.getName());
+         }
+     });
    }
 }

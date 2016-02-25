@@ -67,6 +67,16 @@ public class ShoppingCartDriver
    			else if (operation.equals("search"))
    			{
    				String name = inputs[1];
+   				ArrayList<Item> results = new ArrayList<Item>();
+   			   for (Item i: shoppingCart)
+   			   {
+   			      if(i.getName().contains(name))
+   			      {
+   			         results.add(i);
+   			      }
+   			   }
+   			   int numResults = results.size();
+   			   System.out.println("Found " + numResults + " items with name " + name);
    			}
    			else if (operation.equals("delete"))
    			{

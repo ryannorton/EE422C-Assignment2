@@ -1,3 +1,10 @@
+/**
+ Class to represent Item
+ @author Ryan Norton
+ @author Atreya Misra
+ @version 1.0 2016-02-22
+*/ 
+
 package Assignment3;
 
 import java.util.*;
